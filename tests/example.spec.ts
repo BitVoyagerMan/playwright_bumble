@@ -47,9 +47,10 @@ test('test', async ({ page }) => {
     console.log(captcharResult.solution.text);
     await page.getByPlaceholder('Type what you see').click();
     await page.getByPlaceholder('Type what you see').fill(captcharResult.solution.text);
-    const submitBtn = await page.getByRole('button', { name: 'Submit' })
-    await submitBtn.click();
-    await submitBtn.waitFor({ state: 'detached'});
+    
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(200);
   
     if(await page.getByText('Incorrect symbols')) {
       await page.getByText('Try different captcha').click();
